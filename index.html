@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アサイー公式ストア | ブラジル産オーガニックアサイー</title>
+  <meta name="description" content="ブラジル産・有機認定のアサイーをお届け。スーパーフードで毎日をもっと健康に。初回送料無料・30日返金保証。" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; line-height: 1.6; }
+    a { text-decoration: none; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* NAV */
+    nav { background: #fff; border-bottom: 0.5px solid #e0ddd5; padding: 0.9rem 0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.2rem; font-weight: 600; color: #3C3489; }
+    .nav-cta { background: #534AB7; color: #fff; font-size: 14px; padding: 8px 22px; border-radius: 30px; border: none; cursor: pointer; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #3C3489 0%, #534AB7 60%, #7F77DD 100%); color: #EEEDFE; padding: 5rem 1.5rem 4rem; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); color: #CECBF6; font-size: 13px; padding: 5px 16px; border-radius: 20px; margin-bottom: 1.4rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; color: #EEEDFE; line-height: 1.2; margin-bottom: 1rem; }
+    .hero p { font-size: 1rem; color: #CECBF6; max-width: 500px; margin: 0 auto 2.2rem; line-height: 1.7; }
+    .hero-cta { display: inline-block; background: #fff; color: #3C3489; font-size: 16px; font-weight: 600; padding: 14px 40px; border-radius: 30px; cursor: pointer; border: none; }
+    .hero-cta:hover { background: #CECBF6; }
+    .hero-sub { font-size: 13px; color: #AFA9EC; margin-top: 14px; }
+
+    /* STATS */
+    .stats { background: #fff; border-bottom: 0.5px solid #e0ddd5; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat { padding: 1.5rem 1rem; text-align: center; border-right: 0.5px solid #e0ddd5; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.5rem; font-weight: 600; color: #534AB7; }
+    .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+
+    /* SECTION */
+    section { padding: 4rem 0; }
+    .section-label { font-size: 12px; font-weight: 600; color: #534AB7; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 600; margin-bottom: 0.5rem; }
+    .section-sub { font-size: 15px; color: #666; margin-bottom: 2.5rem; }
+
+    /* FEATURES */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .feature-card { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1.4rem 1.2rem; }
+    .feature-icon { width: 44px; height: 44px; border-radius: 10px; background: #EEEDFE; display: flex; align-items: center; justify-content: center; color: #534AB7; font-size: 22px; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .feature-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+    /* PRODUCTS */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .product-card { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s; }
+    .product-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .product-card.featured { border: 2px solid #534AB7; }
+    .product-img { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 64px; }
+    .product-img.p1 { background: #EEEDFE; }
+    .product-img.p2 { background: #FAEEDA; }
+    .product-img.p3 { background: #E1F5EE; }
+    .product-body { padding: 1.2rem; }
+    .product-badge { font-size: 11px; color: #534AB7; background: #EEEDFE; border-radius: 4px; padding: 3px 10px; display: inline-block; margin-bottom: 8px; }
+    .popular-badge { font-size: 11px; background: #534AB7; color: #EEEDFE; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; display: inline-block; }
+    .product-name { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .product-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 14px; }
+    .product-price { font-size: 20px; font-weight: 600; color: #534AB7; margin-bottom: 12px; }
+    .product-price span { font-size: 13px; font-weight: 400; color: #888; }
+    .product-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; text-align: center; }
+    .product-btn:hover { background: #3C3489; }
+
+    /* STEPS */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .step { text-align: center; padding: 2rem 1.5rem; position: relative; }
+    .step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: #AFA9EC; font-size: 20px; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: #534AB7; color: #fff; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .step h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .step p { font-size: 13px; color: #666; }
+
+    /* REVIEWS */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .review { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1.2rem 1.4rem; }
+    .stars { color: #BA7517; font-size: 14px; margin-bottom: 10px; }
+    .review-text { font-size: 14px; color: #444; line-height: 1.7; margin-bottom: 12px; }
+    .reviewer { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+
+    /* CTA SECTION */
+    .cta-section { background: linear-gradient(135deg, #3C3489 0%, #534AB7 100%); border-radius: 16px; padding: 3.5rem 2rem; text-align: center; margin: 0 1.5rem 4rem; }
+    .cta-section h2 { color: #EEEDFE; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; margin-bottom: 0.6rem; }
+    .cta-section p { color: #AFA9EC; font-size: 15px; margin-bottom: 2rem; }
+    .cta-btn { background: #fff; color: #3C3489; font-size: 16px; font-weight: 600; padding: 14px 44px; border-radius: 30px; border: none; cursor: pointer; }
+    .cta-btn:hover { background: #CECBF6; }
+
+    /* FOOTER */
+    footer { background: #2C2C2A; color: #B4B2A9; padding: 2rem 0; text-align: center; font-size: 13px; }
+    footer a { color: #B4B2A9; }
+
+    .bg-white { background: #fff; }
+    .bg-gray { background: #f8f7f5; }
+    .divider { height: 0.5px; background: #e0ddd5; }
+
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .step:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -12px; transform: translateX(50%); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">🫐 AÇAÍ JAPAN</div>
+    <button class="nav-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">今すぐ注文</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">ブラジル産・有機JAS認定</div>
+  <h1>自然の力を、<br>毎日のエネルギーに。</h1>
+  <p>アマゾン原産のスーパーフード、アサイーベリーで体の内側から輝く。栄養たっぷりのスムージーボウルを今日から始めよう。</p>
+  <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">今すぐ注文する</button>
+  <p class="hero-sub">送料無料 · 定期購入10%オフ · 30日返金保証</p>
+</section>
+
+<div class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-num">5,000+</div><div class="stat-label">満足のお客様</div></div>
+      <div class="stat"><div class="stat-num">98%</div><div class="stat-label">リピート率</div></div>
+      <div class="stat"><div class="stat-num">有機</div><div class="stat-label">JAS認定取得</div></div>
+      <div class="stat"><div class="stat-num">冷凍</div><div class="stat-label">新鮮直送</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="section-label">なぜアサイー？</div>
+    <div class="section-title">栄養の宝庫、<br>スーパーフードの王様</div>
+    <div class="section-sub">アンチエイジングから美容まで、科学が認めた健康パワー</div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true"><i class="ti ti-leaf"></i></div>
+        <h3>高い抗酸化力</h3>
+        <p>ブルーベリーの約20倍のアントシアニンで細胞を活性酸素から守る</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true"><i class="ti ti-bolt"></i></div>
+        <h3>持続するエネルギー</h3>
+        <p>良質な脂肪酸と食物繊維で長時間エネルギーをキープ</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true"><i class="ti ti-heart"></i></div>
+        <h3>美容・美肌効果</h3>
+        <p>ビタミンEとオメガ脂肪酸で肌のハリと輝きをサポート</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true"><i class="ti ti-shield-check"></i></div>
+        <h3>免疫力アップ</h3>
+        <p>豊富なポリフェノールで体の防御力を自然に高める</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="bg-gray">
+  <div class="container">
+    <div class="section-label">商品ラインナップ</div>
+    <div class="section-title">あなたに合った<br>アサイーを選ぼう</div>
+    <div class="section-sub">3つのタイプからライフスタイルに合わせて選択</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img p1">🫐</div>
+        <div class="product-body">
+          <div class="product-badge">スタンダード</div>
+          <div class="product-name">アサイーピューレ</div>
+          <div class="product-desc">冷凍パックで使いやすい定番タイプ。スムージーボウルの基本。100g × 10袋入り。</div>
+          <div class="product-price">¥2,980 <span>/ セット</span></div>
+          <button class="product-btn">カートに追加</button>
+        </div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-img p2">✨</div>
+        <div class="product-body">
+          <div class="popular-badge">人気 No.1</div>
+          <div class="product-name">プレミアムボウルキット</div>
+          <div class="product-desc">アサイー＋グラノーラ＋トッピング全部入り。届いてすぐ始められる完全セット。</div>
+          <div class="product-price">¥4,580 <span>/ セット</span></div>
+          <button class="product-btn">カートに追加</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img p3">🌱</div>
+        <div class="product-body">
+          <div class="product-badge">定期便</div>
+          <div class="product-name">マンスリーBOX</div>
+          <div class="product-desc">毎月お届けの定期コース。送料無料＋10%割引。まとめてお得に続けられる。</div>
+          <div class="product-price">¥7,980 <span>/ 月</span></div>
+          <button class="product-btn">定期購入する</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="section-label">ご注文の流れ</div>
+    <div class="section-title">3ステップで<br>簡単お届け</div>
+    <div class="section-sub">面倒な手続き不要。3分で注文完了</div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>商品を選ぶ</h3>
+        <p>お好みのセットをカートに追加するだけ</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>お届け先を入力</h3>
+        <p>住所・支払い方法を設定して注文確定</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>新鮮に到着</h3>
+        <p>冷凍便でご自宅に翌日〜2日でお届け</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray">
+  <div class="container">
+    <div class="section-label">お客様の声</div>
+    <div class="section-title">5,000人以上が<br>実感した変化</div>
+    <div class="section-sub">リアルなレビューをご紹介</div>
+    <div class="reviews-grid">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">毎朝アサイーボウルを食べるようになって肌の調子が格段によくなりました！続けやすい価格も嬉しいです。</div>
+        <div class="reviewer">田中 美咲さん（30代）</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="review-text">トレーニング後のリカバリーに最高。エネルギーが続くし、翌日の疲れが全然違います。もう手放せません。</div>
+        <div class="reviewer">山本 健太さん（20代）</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★☆</div>
+        <div class="review-text">定期便にして半年。味も安定していて品質が高い。子どもも大好きで家族全員でリピートしています！</div>
+        <div class="reviewer">佐藤 由紀さん（40代）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <h2>はじめてのアサイー、<br>今日からスタート。</h2>
+  <p>初回限定 送料無料 · 30日間返金保証付き · 定期なしでも購入OK</p>
+  <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">今すぐ注文する</button>
+</div>
+
+<footer>
+  <div class="container">
+    <p style="margin-bottom: 8px;">© 2025 AÇAÍ JAPAN. All rights reserved.</p>
+    <p><a href="#">特定商取引法に基づく表記</a> · <a href="#">プライバシーポリシー</a> · <a href="#">お問い合わせ</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
