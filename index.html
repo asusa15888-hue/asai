@@ -68,6 +68,10 @@
     .product-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; text-align: center; transition: background 0.15s; }
     .product-btn:hover { background: #3C3489; }
     .product-btn.added { background: #0F6E56; }
+    .product-card.selected { border: 2px solid #534AB7; }
+    .product-card.selected .product-btn { background: #0F6E56; }
+    .selected-label { display: none; font-size: 12px; background: #534AB7; color: #fff; text-align: center; padding: 5px; font-weight: 600; letter-spacing: 0.04em; }
+    .product-card.selected .selected-label { display: block; }
 
     /* Toast */
     #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1a; color: #fff; font-size: 14px; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
@@ -195,34 +199,37 @@
     <div class="section-title">あなたに合った<br>アサイーを選ぼう</div>
     <div class="section-sub">3つのタイプからライフスタイルに合わせて選択</div>
     <div class="products-grid">
-      <div class="product-card">
+      <div class="product-card" id="card-0">
+        <div class="selected-label">✓ カート追加済み</div>
         <div class="product-img p1">🫐</div>
         <div class="product-body">
           <div class="product-badge">スタンダード</div>
           <div class="product-name">アサイーピューレ</div>
           <div class="product-desc">冷凍パックで使いやすい定番タイプ。スムージーボウルの基本。100g × 10袋入り。</div>
           <div class="product-price">¥2,980 <span>/ セット</span></div>
-          <button class="product-btn" onclick="addToCart(this,'アサイーピューレ',2980)">カートに追加</button>
+          <button class="product-btn" onclick="addToCart(this,'アサイーピューレ',2980,'card-0')">カートに追加</button>
         </div>
       </div>
-      <div class="product-card featured">
+      <div class="product-card featured" id="card-1">
+        <div class="selected-label">✓ カート追加済み</div>
         <div class="product-img p2">✨</div>
         <div class="product-body">
           <div class="popular-badge">人気 No.1</div>
           <div class="product-name">プレミアムボウルキット</div>
           <div class="product-desc">アサイー＋グラノーラ＋トッピング全部入り。届いてすぐ始められる完全セット。</div>
           <div class="product-price">¥4,580 <span>/ セット</span></div>
-          <button class="product-btn" onclick="addToCart(this,'プレミアムボウルキット',4580)">カートに追加</button>
+          <button class="product-btn" onclick="addToCart(this,'プレミアムボウルキット',4580,'card-1')">カートに追加</button>
         </div>
       </div>
-      <div class="product-card">
+      <div class="product-card" id="card-2">
+        <div class="selected-label">✓ カート追加済み</div>
         <div class="product-img p3">🌱</div>
         <div class="product-body">
           <div class="product-badge">定期便</div>
           <div class="product-name">マンスリーBOX</div>
           <div class="product-desc">毎月お届けの定期コース。送料無料＋10%割引。まとめてお得に続けられる。</div>
           <div class="product-price">¥7,980 <span>/ 月</span></div>
-          <button class="product-btn" onclick="addToCart(this,'マンスリーBOX',7980)">定期購入する</button>
+          <button class="product-btn" onclick="addToCart(this,'マンスリーBOX',7980,'card-2')">定期購入する</button>
         </div>
       </div>
     </div>
@@ -321,8 +328,9 @@
 <script>
   const cart = {};
 
-  function addToCart(btn, name, price) {
+  function addToCart(btn, name, price, cardId) {
     cart[name] = { price, qty: (cart[name]?.qty || 0) + 1 };
+    document.getElementById(cardId).classList.add('selected');
     btn.textContent = '追加済み ✓';
     btn.classList.add('added');
     setTimeout(() => { btn.textContent = name === 'マンスリーBOX' ? '定期購入する' : 'カートに追加'; btn.classList.remove('added'); }, 1500);
