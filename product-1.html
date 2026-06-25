@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アサイーピューレ | AÇAÍ JAPAN</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; line-height: 1.6; }
+    nav { background: #fff; border-bottom: 0.5px solid #e0ddd5; padding: 0.9rem 1.5rem; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.1rem; font-weight: 600; color: #3C3489; text-decoration: none; }
+    .breadcrumb { font-size: 13px; color: #888; }
+    .breadcrumb a { color: #534AB7; text-decoration: none; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .product-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem 0; align-items: start; }
+    .product-visual { background: #EEEDFE; border-radius: 16px; height: 320px; display: flex; align-items: center; justify-content: center; font-size: 100px; }
+    .product-info { padding-top: 0.5rem; }
+    .badge { font-size: 12px; color: #534AB7; background: #EEEDFE; border-radius: 4px; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+    .product-info h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; }
+    .stars { color: #BA7517; font-size: 14px; margin-bottom: 16px; }
+    .stars span { color: #888; font-size: 13px; margin-left: 6px; }
+    .price { font-size: 2rem; font-weight: 600; color: #534AB7; margin-bottom: 6px; }
+    .price-note { font-size: 13px; color: #888; margin-bottom: 20px; }
+    .divider { height: 0.5px; background: #e0ddd5; margin: 20px 0; }
+
+    .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .qty-label { font-size: 14px; color: #555; }
+    .qty-ctrl { display: flex; align-items: center; gap: 0; border: 0.5px solid #ccc; border-radius: 8px; overflow: hidden; }
+    .qty-ctrl button { background: #f0eef8; border: none; width: 36px; height: 36px; font-size: 18px; cursor: pointer; color: #534AB7; }
+    .qty-ctrl span { width: 40px; text-align: center; font-size: 15px; font-weight: 500; }
+
+    .add-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+    .add-btn:hover { background: #3C3489; }
+    .sub-btn { display: block; width: 100%; background: #fff; color: #534AB7; border: 1.5px solid #534AB7; border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+
+    .perks { margin-top: 20px; }
+    .perk { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; margin-bottom: 6px; }
+    .perk i { color: #0F6E56; font-size: 16px; }
+
+    section { padding: 2.5rem 0; }
+    .section-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+
+    .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .detail-card { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1rem; text-align: center; }
+    .detail-card .num { font-size: 1.4rem; font-weight: 600; color: #534AB7; }
+    .detail-card .lbl { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .desc-block { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1.4rem; }
+    .desc-block p { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 12px; }
+    .desc-block p:last-child { margin-bottom: 0; }
+
+    table.nutrition { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.nutrition th { background: #EEEDFE; color: #3C3489; padding: 8px 12px; text-align: left; font-weight: 600; }
+    table.nutrition td { padding: 8px 12px; border-bottom: 0.5px solid #e0ddd5; }
+    table.nutrition tr:last-child td { border-bottom: none; }
+
+    .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .review { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.2rem; }
+    .review .stars2 { color: #BA7517; font-size: 13px; margin-bottom: 8px; }
+    .review p { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+    .review strong { font-size: 12px; }
+
+    #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1a; color: #fff; font-size: 14px; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 600px) {
+      .product-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+      .detail-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">🫐 AÇAÍ JAPAN</a>
+  <span class="breadcrumb">/ <a href="index.html#products">商品一覧</a> / アサイーピューレ</span>
+</nav>
+
+<div class="container">
+
+  <div class="product-hero">
+    <div class="product-visual">🫐</div>
+    <div class="product-info">
+      <div class="badge">スタンダード</div>
+      <h1>アサイーピューレ</h1>
+      <div class="stars">★★★★★ <span>4.8（142件）</span></div>
+      <div class="price">¥2,980</div>
+      <div class="price-note">100g × 10袋入り · 送料無料</div>
+      <div class="divider"></div>
+
+      <div class="qty-row">
+        <span class="qty-label">数量</span>
+        <div class="qty-ctrl">
+          <button onclick="changeQty(-1)">−</button>
+          <span id="qty">1</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <button class="add-btn" onclick="addToCart()">カートに追加</button>
+      <button class="sub-btn" onclick="subscribe()">定期購入で10%オフ（¥2,682）</button>
+
+      <div class="perks">
+        <div class="perk"><i class="ti ti-truck"></i>送料無料</div>
+        <div class="perk"><i class="ti ti-refresh"></i>30日間返金保証</div>
+        <div class="perk"><i class="ti ti-leaf"></i>有機JAS認定</div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-title">栄養データ（100gあたり）</div>
+    <div class="detail-grid">
+      <div class="detail-card"><div class="num">70kcal</div><div class="lbl">カロリー</div></div>
+      <div class="detail-card"><div class="num">5g</div><div class="lbl">食物繊維</div></div>
+      <div class="detail-card"><div class="num">5g</div><div class="lbl">良質な脂肪</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">商品について</div>
+    <div class="desc-block">
+      <p>ブラジル・アマゾン流域で採れた100%有機認定アサイーベリーを、収穫後すぐに急速冷凍。鮮度と栄養をそのままパックしました。</p>
+      <p>砂糖・着色料・保存料は一切不使用。アサイー本来の濃厚な風味と栄養をそのままお届けします。</p>
+      <p>スムージーボウルのベースに最適。バナナやグラノーラと合わせるだけで本格ボウルが完成します。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">栄養成分表示（100gあたり）</div>
+    <table class="nutrition">
+      <tr><th>栄養素</th><th>含有量</th></tr>
+      <tr><td>エネルギー</td><td>70 kcal</td></tr>
+      <tr><td>たんぱく質</td><td>1.5 g</td></tr>
+      <tr><td>脂質</td><td>5.0 g</td></tr>
+      <tr><td>炭水化物</td><td>6.0 g</td></tr>
+      <tr><td>食物繊維</td><td>5.0 g</td></tr>
+      <tr><td>アントシアニン</td><td>320 mg</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="section-title">お客様の声</div>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars2">★★★★★</div>
+        <p>毎朝使っています。甘すぎず本物の味で気に入っています。</p>
+        <strong>田中 美咲さん（30代）</strong>
+      </div>
+      <div class="review">
+        <div class="stars2">★★★★★</div>
+        <p>冷凍なのに解凍後も品質が落ちない。リピート確定です。</p>
+        <strong>鈴木 一郎さん（40代）</strong>
+      </div>
+      <div class="review">
+        <div class="stars2">★★★★☆</div>
+        <p>コスパが良くて続けやすい。家族全員でリピートしています。</p>
+        <strong>佐藤 由紀さん（30代）</strong>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+  let qty = 1;
+  function changeQty(d) {
+    qty = Math.max(1, qty + d);
+    document.getElementById('qty').textContent = qty;
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+  function addToCart() { showToast('アサイーピューレ × ' + qty + ' をカートに追加しました'); }
+  function subscribe() { showToast('定期購入プランに追加しました'); }
+</script>
+
+</body>
+</html>

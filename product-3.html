@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>マンスリーBOX | AÇAÍ JAPAN</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; line-height: 1.6; }
+    nav { background: #fff; border-bottom: 0.5px solid #e0ddd5; padding: 0.9rem 1.5rem; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.1rem; font-weight: 600; color: #3C3489; text-decoration: none; }
+    .breadcrumb { font-size: 13px; color: #888; }
+    .breadcrumb a { color: #534AB7; text-decoration: none; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+    .product-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem 0; align-items: start; }
+    .product-visual { background: #E1F5EE; border-radius: 16px; height: 320px; display: flex; align-items: center; justify-content: center; font-size: 100px; }
+    .product-info { padding-top: 0.5rem; }
+    .badge { font-size: 12px; color: #0F6E56; background: #E1F5EE; border-radius: 4px; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+    .product-info h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 8px; }
+    .stars { color: #BA7517; font-size: 14px; margin-bottom: 16px; }
+    .stars span { color: #888; font-size: 13px; margin-left: 6px; }
+    .price-orig { font-size: 14px; color: #aaa; text-decoration: line-through; margin-bottom: 2px; }
+    .price { font-size: 2rem; font-weight: 600; color: #534AB7; margin-bottom: 6px; }
+    .price-note { font-size: 13px; color: #888; margin-bottom: 20px; }
+    .saving-badge { display: inline-block; background: #E1F5EE; color: #0F6E56; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+    .divider { height: 0.5px; background: #e0ddd5; margin: 20px 0; }
+    .add-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+    .add-btn:hover { background: #3C3489; }
+    .cancel-note { font-size: 13px; color: #888; text-align: center; margin-bottom: 16px; }
+    .perks { margin-top: 4px; }
+    .perk { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; margin-bottom: 6px; }
+    .perk i { color: #0F6E56; font-size: 16px; }
+    section { padding: 2.5rem 0; }
+    .section-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+    .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .plan-card { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1.2rem; text-align: center; }
+    .plan-card.active { border: 2px solid #534AB7; }
+    .plan-card .plan-label { font-size: 12px; color: #534AB7; font-weight: 600; margin-bottom: 6px; }
+    .plan-card .plan-price { font-size: 1.3rem; font-weight: 600; }
+    .plan-card .plan-sub { font-size: 12px; color: #888; margin-top: 4px; }
+    .contents-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+    .content-item { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; }
+    .content-icon { font-size: 28px; }
+    .content-info { font-size: 14px; font-weight: 600; }
+    .content-info span { display: block; font-size: 12px; color: #888; font-weight: 400; }
+    .desc-block { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1.4rem; }
+    .desc-block p { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 12px; }
+    .desc-block p:last-child { margin-bottom: 0; }
+    .faq { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.2rem; }
+    .faq-q { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .faq-a { font-size: 13px; color: #555; line-height: 1.6; }
+    .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .review { background: #fff; border: 0.5px solid #e0ddd5; border-radius: 12px; padding: 1rem 1.2rem; }
+    .review .stars2 { color: #BA7517; font-size: 13px; margin-bottom: 8px; }
+    .review p { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+    .review strong { font-size: 12px; }
+    #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1a; color: #fff; font-size: 14px; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (max-width: 600px) {
+      .product-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+      .plan-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">🫐 AÇAÍ JAPAN</a>
+  <span class="breadcrumb">/ <a href="index.html#products">商品一覧</a> / マンスリーBOX</span>
+</nav>
+
+<div class="container">
+
+  <div class="product-hero">
+    <div class="product-visual">🌱</div>
+    <div class="product-info">
+      <div class="badge">定期便</div>
+      <h1>マンスリーBOX</h1>
+      <div class="stars">★★★★★ <span>4.9（198件）</span></div>
+      <div class="price-orig">¥8,870</div>
+      <div class="price">¥7,980</div>
+      <div class="saving-badge">毎月 ¥890 おトク（10%オフ）</div>
+      <div class="price-note">送料無料 · 毎月お届け · いつでも解約OK</div>
+      <div class="divider"></div>
+
+      <button class="add-btn" onclick="subscribe()">定期購入をはじめる</button>
+      <p class="cancel-note">縛りなし · 翌月分の3日前までに解約可能</p>
+
+      <div class="perks">
+        <div class="perk"><i class="ti ti-truck"></i>送料永久無料</div>
+        <div class="perk"><i class="ti ti-refresh"></i>いつでも解約・スキップOK</div>
+        <div class="perk"><i class="ti ti-gift"></i>定期会員限定シーズナル商品あり</div>
+        <div class="perk"><i class="ti ti-headset"></i>専任サポートつき</div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-title">プランを選ぶ</div>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="plan-label">ライト</div>
+        <div class="plan-price">¥4,480<span style="font-size:13px;font-weight:400;color:#888"> /月</span></div>
+        <div class="plan-sub">アサイーのみ · 5袋</div>
+      </div>
+      <div class="plan-card active">
+        <div class="plan-label">スタンダード（人気）</div>
+        <div class="plan-price">¥7,980<span style="font-size:13px;font-weight:400;color:#888"> /月</span></div>
+        <div class="plan-sub">フルセット · 10袋＋トッピング</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">ファミリー</div>
+        <div class="plan-price">¥13,800<span style="font-size:13px;font-weight:400;color:#888"> /月</span></div>
+        <div class="plan-sub">大容量 · 20袋＋全トッピング</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">毎月届く内容（スタンダード）</div>
+    <div class="contents-list">
+      <div class="content-item"><div class="content-icon">🫐</div><div class="content-info">アサイーピューレ<span>100g × 10袋</span></div></div>
+      <div class="content-item"><div class="content-icon">🌾</div><div class="content-info">グラノーラ<span>200g × 1袋</span></div></div>
+      <div class="content-item"><div class="content-icon">🍓</div><div class="content-info">ミックスベリー<span>冷凍 100g</span></div></div>
+      <div class="content-item"><div class="content-icon">🥥</div><div class="content-info">ココナッツフレーク<span>30g × 1袋</span></div></div>
+      <div class="content-item"><div class="content-icon">🍯</div><div class="content-info">はちみつ<span>小瓶 1本</span></div></div>
+      <div class="content-item"><div class="content-icon">🎁</div><div class="content-info">月替わりギフト<span>シーズナル商品</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">定期便について</div>
+    <div class="desc-block">
+      <p>毎月25日に翌月分を発送。冷凍便でご自宅に直送します。お届け日の3日前までにマイページからスキップ・解約が可能です。</p>
+      <p>定期会員限定で、季節ごとの限定フレーバーや新商品を先行お届け。アサイー生活をもっと楽しめるコンテンツもご用意しています。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">よくある質問</div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">いつでも解約できますか？</div>
+        <div class="faq-a">はい。お届け日の3日前までにマイページから手続きいただければ、違約金なしで解約できます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">お届け日の変更はできますか？</div>
+        <div class="faq-a">毎月15日までにご連絡いただければ、翌月分のお届け日を調整できます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">支払い方法は？</div>
+        <div class="faq-a">クレジットカード（VISA / Mastercard / JCB）、コンビニ払い、Amazon Payに対応しています。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">お客様の声</div>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars2">★★★★★</div>
+        <p>定期便にして半年。毎月届くのが楽しみになりました。月替わりギフトがいつも嬉しい！</p>
+        <strong>佐藤 由紀さん（40代）</strong>
+      </div>
+      <div class="review">
+        <div class="stars2">★★★★★</div>
+        <p>スキップも簡単で旅行中も安心。縛りがないから気軽に始められました。</p>
+        <strong>高橋 誠さん（30代）</strong>
+      </div>
+      <div class="review">
+        <div class="stars2">★★★★★</div>
+        <p>家族4人でファミリープランを利用中。コスパが最高です。</p>
+        <strong>渡辺 恵さん（40代）</strong>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+  function subscribe() { showToast('マンスリーBOXの定期購入を開始しました'); }
+</script>
+
+</body>
+</html>
