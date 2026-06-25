@@ -65,8 +65,33 @@
     .product-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 14px; }
     .product-price { font-size: 20px; font-weight: 600; color: #534AB7; margin-bottom: 12px; }
     .product-price span { font-size: 13px; font-weight: 400; color: #888; }
-    .product-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; text-align: center; }
+    .product-btn { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; text-align: center; transition: background 0.15s; }
     .product-btn:hover { background: #3C3489; }
+    .product-btn.added { background: #0F6E56; }
+
+    /* Toast */
+    #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1a; color: #fff; font-size: 14px; padding: 12px 24px; border-radius: 30px; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Cart bar */
+    #cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #3C3489; color: #fff; display: none; align-items: center; justify-content: space-between; padding: 14px 1.5rem; z-index: 200; }
+    #cart-bar.visible { display: flex; }
+    #cart-bar span { font-size: 14px; }
+    #cart-bar strong { font-size: 16px; }
+    #cart-bar button { background: #fff; color: #3C3489; border: none; border-radius: 30px; padding: 8px 24px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+    /* Modal */
+    #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; align-items: flex-end; justify-content: center; }
+    #modal-overlay.open { display: flex; }
+    #modal { background: #fff; border-radius: 16px 16px 0 0; width: 100%; max-width: 560px; padding: 2rem 1.5rem 2.5rem; }
+    #modal h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; }
+    .modal-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 0.5px solid #e0ddd5; font-size: 14px; }
+    .modal-item:last-of-type { border-bottom: none; }
+    .modal-total { font-size: 16px; font-weight: 600; text-align: right; margin: 12px 0 1.5rem; color: #534AB7; }
+    .modal-form label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; margin-top: 12px; }
+    .modal-form input { width: 100%; border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+    .modal-submit { display: block; width: 100%; background: #534AB7; color: #fff; border: none; border-radius: 8px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 1.2rem; }
+    .modal-close { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: #888; line-height: 1; }
 
     /* STEPS */
     .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
@@ -177,7 +202,7 @@
           <div class="product-name">アサイーピューレ</div>
           <div class="product-desc">冷凍パックで使いやすい定番タイプ。スムージーボウルの基本。100g × 10袋入り。</div>
           <div class="product-price">¥2,980 <span>/ セット</span></div>
-          <button class="product-btn">カートに追加</button>
+          <button class="product-btn" onclick="addToCart(this,'アサイーピューレ',2980)">カートに追加</button>
         </div>
       </div>
       <div class="product-card featured">
@@ -187,7 +212,7 @@
           <div class="product-name">プレミアムボウルキット</div>
           <div class="product-desc">アサイー＋グラノーラ＋トッピング全部入り。届いてすぐ始められる完全セット。</div>
           <div class="product-price">¥4,580 <span>/ セット</span></div>
-          <button class="product-btn">カートに追加</button>
+          <button class="product-btn" onclick="addToCart(this,'プレミアムボウルキット',4580)">カートに追加</button>
         </div>
       </div>
       <div class="product-card">
@@ -197,7 +222,7 @@
           <div class="product-name">マンスリーBOX</div>
           <div class="product-desc">毎月お届けの定期コース。送料無料＋10%割引。まとめてお得に続けられる。</div>
           <div class="product-price">¥7,980 <span>/ 月</span></div>
-          <button class="product-btn">定期購入する</button>
+          <button class="product-btn" onclick="addToCart(this,'マンスリーBOX',7980)">定期購入する</button>
         </div>
       </div>
     </div>
@@ -260,6 +285,32 @@
   <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">今すぐ注文する</button>
 </div>
 
+<div id="toast"></div>
+
+<div id="cart-bar">
+  <div><span>カート </span><strong id="cart-count">0点</strong></div>
+  <div><strong id="cart-total">¥0</strong></div>
+  <button onclick="openModal()">注文へ進む</button>
+</div>
+
+<div id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>注文内容の確認</h3>
+    <div id="modal-items"></div>
+    <div class="modal-total" id="modal-total"></div>
+    <div class="modal-form">
+      <label>お名前</label>
+      <input type="text" placeholder="山田 太郎" />
+      <label>メールアドレス</label>
+      <input type="email" placeholder="example@email.com" />
+      <label>お届け先住所</label>
+      <input type="text" placeholder="東京都渋谷区..." />
+    </div>
+    <button class="modal-submit" onclick="submitOrder()">注文を確定する</button>
+  </div>
+</div>
+
 <footer>
   <div class="container">
     <p style="margin-bottom: 8px;">© 2025 AÇAÍ JAPAN. All rights reserved.</p>
@@ -267,5 +318,53 @@
   </div>
 </footer>
 
+<script>
+  const cart = {};
+
+  function addToCart(btn, name, price) {
+    cart[name] = { price, qty: (cart[name]?.qty || 0) + 1 };
+    btn.textContent = '追加済み ✓';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = name === 'マンスリーBOX' ? '定期購入する' : 'カートに追加'; btn.classList.remove('added'); }, 1500);
+    updateCartBar();
+    showToast(name + ' をカートに追加しました');
+  }
+
+  function updateCartBar() {
+    const total = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
+    const count = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-count').textContent = count + '点';
+    document.getElementById('cart-total').textContent = '¥' + total.toLocaleString();
+    document.getElementById('cart-bar').classList.toggle('visible', count > 0);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function openModal() {
+    const items = document.getElementById('modal-items');
+    const total = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
+    items.innerHTML = Object.entries(cart).map(([name, {price, qty}]) =>
+      `<div class="modal-item"><span>${name} × ${qty}</span><span>¥${(price*qty).toLocaleString()}</span></div>`
+    ).join('');
+    document.getElementById('modal-total').textContent = '合計 ¥' + total.toLocaleString();
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function submitOrder() {
+    closeModal();
+    Object.keys(cart).forEach(k => delete cart[k]);
+    updateCartBar();
+    showToast('ご注文ありがとうございました！');
+  }
+</script>
 </body>
 </html>
